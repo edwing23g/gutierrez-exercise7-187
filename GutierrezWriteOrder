@@ -1,0 +1,75 @@
+/*
+ * AUTHOR: Edwing Gutierrez 
+ * COURSE: CPT 187 
+ * PURPOSE:  Once the sale is complete the purchases will be saved onto a file 
+ * the user will be able to look at the file and look at their purchase history
+ * STARTDATE: 12/05/2021
+ */
+package edu.cpt187.gutierrez.project6;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class WriteOrder 
+{
+	//final class attributes 
+		private final int RESET_VALUE = 0;
+		private final int NOT_FOUND = -1;
+		
+		//class attributes
+		private boolean fileFoundFlag = false;
+		private String masterFileName = "";
+		private int recordCount = 0;
+		
+		//CONSTRUCTOR//
+		public WriteOrder(String borrowedFileName)
+		{
+			masterFileName = borrowedFileName;
+		}//end of WriterOrder 
+		
+		//setters//
+		
+		public void setWriteOrder(int borrowedID, String borrowedItemName, double borrowedItemPrice, int borrowedQuantity, double borrowedOrderCost)
+		{
+			try
+			{
+			recordCount = RESET_VALUE;	
+			
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName, true));
+			
+			filePW.printf("%n%-2d\t%-25s\t%.2f\t%d\t%.2f", borrowedID, borrowedItemName, borrowedItemPrice, borrowedQuantity, borrowedOrderCost);
+
+			
+			recordCount++;
+			//fileFoundFlag = true;
+			
+			filePW.close();
+			}//end of try
+			catch (IOException ex)
+			{
+				recordCount = NOT_FOUND;
+			}//end of catch
+			
+		}//end of setWriteOrder
+		
+		
+		//GETTERS//
+		
+		public boolean getFileFoundFlag()
+		{
+			return fileFoundFlag;
+		}//end of getFileFoundFlag
+		
+		public String getFileName()
+		{
+			return masterFileName;
+		}//end of getFileName
+		
+		public int getRecordCount()
+		{
+			return recordCount;
+		}//end of getRecordCount
+	
+	
+}//END OF WRITEORDER
